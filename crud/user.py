@@ -1,4 +1,5 @@
-from schemas.user import UserCreate
+from fastapi import HTTPException
+from schemas.user import UserCreate, UserUpdate
 from database import users
 from models import User as UserModel
 
@@ -22,15 +23,28 @@ class UserCrud:
         return {"message": "User not exist"}
     
     @staticmethod
+    def update_user(user_id: int, user_data: UserUpdate):
+        for user in users:
+            if user.id == user_id:
+                if user_data.name:
+                    user.name = user_data.name
+                if user_data.email:
+                    user.email = user_data.email
+                return user 
+        raise HTTPException(status_code=404, detail="User not found")           
+
+    
+    @staticmethod
     def deactivate_user(user_id: int):
         for user in users:
             if user.id == user_id:
-                user.is_active = False
                 if not user.is_active:
-                    break
+                    raise HTTPException(status_code=403, detail="User is not active")
+                user.is_active = False
                 return {"message": "User deactivated successfully"}
-        return {"message": "User not found or deleted successfully"}
+        raise HTTPException(status_code=404, detail="User not found")
 
+        
     @staticmethod
     def get_all_users():
         return users    
