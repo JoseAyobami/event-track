@@ -7,8 +7,8 @@ class RegistrationBase(BaseModel):
     event_id: int
     
 
-class RegistrationCreate(BaseModel):
-    user_id: int
+class RegistrationCreate(RegistrationBase):
+    pass
 
     
 class Registration(RegistrationBase):
