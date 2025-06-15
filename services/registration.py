@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from database import users, events
 from crud.user import user_crud
 from crud.event import event_crud
 from crud.register import register_crud
@@ -9,19 +10,28 @@ class RegistrationService:
     @staticmethod
     def register_user_for_event(registration_data: RegistrationCreate):
         user = user_crud.get_users_by_id(registration_data.user_id)
-        if not user.is_active:
-            raise HTTPException(status_code=400, detail="User not active")
+        for user in users:
+            if not user:
+                raise HTTPException(status_code=404, detail="User not found")
+            
+            if not user.is_active:
+                raise HTTPException(status_code=400, detail="User not active")
+            
+            if register_crud.is_user_registered(registration_data.event_id, registration_data.user_id):
+                raise HTTPException(status_code=400, detail="User is already registered for this event")
+
+           
 
         
         event = event_crud.get_event_by_id(registration_data.event_id)
-        if not event.is_open:
-            raise HTTPException(status_code=404, detail="Event not open")
+        for event in events:
+            if not event:
+                raise HTTPException(status_code=404, detail="Event not found")
+            
+            if not event.is_open:
+                raise HTTPException(status_code=404, detail="Event not open")                               
         
-
-        # Check if user already registered for this event
-        if register_crud.is_user_registered(registration_data.event_id, registration_data.user_id):
-            raise HTTPException(status_code=400, detail="User is already registered for this event")
-        
+          
         reg = register_crud.create_event_registration(registration_data) 
         return {"message": f"User registered for event {event.title} successfully", "registration": reg}
 

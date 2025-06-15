@@ -10,7 +10,7 @@ user_router = APIRouter()
 def create_user(user_data: UserCreate):
     return user_crud.create_user(user_data)
 
-@user_router.post("/{user_id}", status_code=200)
+@user_router.post("/{user_id}/deactivate", status_code=200)
 def deactivate_user(user_id: int):
     return user_crud.deactivate_user(user_id)
 

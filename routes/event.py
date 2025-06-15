@@ -10,6 +10,11 @@ event_router = APIRouter()
 def create_event(event_data: EventCreate):
     return event_crud.create_event(event_data)
 
+
+@event_router.post("/{event_id}/close", status_code=200)
+def close_event(event_id: int):
+    return event_crud.close_events(event_id)
+
 @event_router.get("/{event_id}", status_code=200)
 def get_event_by_id(event_id: int):
     return event_crud.get_event_by_id(event_id)
@@ -18,12 +23,6 @@ def get_event_by_id(event_id: int):
 def update_event(event_id: int, event_data: EventUpdate):
     return event_crud.update_event(event_id, event_data)
 
-
-
-@event_router.post("/{event_id}/close", status_code=200)
-def close_event(event_id: int):
-    event = event_crud.get_event_by_id(event_id)
-    return event_crud.close_events(event)
 
 @event_router.get("/", status_code=200)
 def get_all_events():

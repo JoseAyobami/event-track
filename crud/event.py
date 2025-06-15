@@ -57,15 +57,12 @@ class EventCrud:
         for event in events:
             if event.id == event_id:
                 if not event.is_open:
-                    raise HTTPException(
-                        status_code=400, 
-                        detail="Event is already closed"
-                    )
+                    raise HTTPException(status_code=403, detail="Event is not open")
                 event.is_open = False
-                return {"meesage": "Event closed successfully"}
+                return {"messgae": "Event closed successfully"}
         raise HTTPException(
             status_code=404, 
-            detail="Event close successfully"
+            detail="Event not found"
         )    
 
     @staticmethod
