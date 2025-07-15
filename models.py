@@ -8,13 +8,13 @@ class User:
 
 
 class Event:
-    def __init__(self, id: int, title: str, location: str, event_date: str, speaker_id: int, is_open: bool = True):
+    def __init__(self, id: int, title: str, location: str, event_date: str, speaker: str, is_open: bool = True):
         self.id = id
         self.title = title
         self.location = location
         self.event_date = event_date
-        self.speaker_id = speaker_id
         self.is_open = is_open 
+        self.speaker = speaker
         
 
 
@@ -24,6 +24,11 @@ class Speaker:
         self.name = name
         self.topic = topic
 
+class EventSpeaker:
+    def __init__(self, id: int, event_id: int, speaker_id: int):
+        self.id = id 
+        self.event_id = event_id
+        self.speaker_id = speaker_id
 
 class Registration:
     def __init__(self, id: int, user_id: int, event_id: int, registration_date: str, attended: bool = False):
