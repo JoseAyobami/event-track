@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from schemas.event import EventCreate, EventUpdate
+from schemas.speaker import SpeakerBase
 from crud.event import event_crud
 
 
@@ -11,7 +12,7 @@ def create_event(event_data: EventCreate):
     return event_crud.create_event(event_data)
 
 
-@event_router.post("/{event_id}/close", status_code=200)
+@event_router.patch("/{event_id}/close", status_code=200)
 def close_event(event_id: int):
     return event_crud.close_events(event_id)
 
