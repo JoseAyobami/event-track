@@ -47,9 +47,9 @@ class RegistrationCrud:
 
 
     @staticmethod
-    def mark_attendance(event_id: int, user_id: int):
+    def mark_attendance(registration_id: int):
         for reg in registrations:
-            if reg.user_id == user_id and reg.event_id == event_id:
+            if reg.id == registration_id:
                 reg.attended = True
                 return reg
         raise HTTPException(status_code=404, detail="Registration not found")
