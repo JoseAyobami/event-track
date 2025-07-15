@@ -1,6 +1,7 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List 
 from datetime import date
+from schemas.speaker import SpeakerBase
 
 class EventBase(BaseModel):
     title: str
@@ -9,7 +10,8 @@ class EventBase(BaseModel):
 
 class EventCreate(EventBase):
     is_open: bool = True
-    speaker_id: int
+    speaker: SpeakerBase
+
 
 class EventUpdate(BaseModel):
     title: Optional[str]  = None
@@ -18,5 +20,5 @@ class EventUpdate(BaseModel):
 
 class Event(EventBase):
     id: int
-    event_date: date 
+    event_date: date
     
