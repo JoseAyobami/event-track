@@ -37,8 +37,8 @@ class RegistrationService:
 
 
     @staticmethod
-    def mark_attendance(event_id: int, user_id: int):
-        registration = register_crud.mark_attendance(event_id, user_id)
+    def mark_attendance(registration_id: int):
+        registration = register_crud.mark_attendance(registration_id)
         if not registration:
             raise HTTPException(
                 status_code=404,
