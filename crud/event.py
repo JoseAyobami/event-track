@@ -9,14 +9,14 @@ class EventCrud:
 
     @staticmethod
     def create_event(event_data: EventCreate):
-        for speaker in speakers:
-            if speaker.id == event_data.speaker_id:
-                break
-        else:
-            raise HTTPException(
-                status_code=404, 
-                detail="Speaker not found"
-            )
+        # for speaker in speakers:
+        #     if speaker.id == event_data.speaker_id:
+        #         break
+        # else:
+        #     raise HTTPException(
+        #         status_code=404, 
+        #         detail="Speaker not found"
+        #     )
         
         event_id = len(events) + 1
         event = EventModel(id=event_id, event_date=date.today(), **event_data.model_dump())
