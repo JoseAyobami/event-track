@@ -12,8 +12,7 @@ class UserCrud:
         user = UserModel(id=user_id, **user_data.model_dump())
         users.append(user)
         return user
-        
-                              
+                                    
     
     @staticmethod
     def get_users_by_id(user_id: int):
