@@ -10,7 +10,7 @@ class EventBase(BaseModel):
 
 class EventCreate(EventBase):
     is_open: bool = True
-    speaker: SpeakerBase
+    
 
 
 class EventUpdate(BaseModel):
